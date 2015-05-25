@@ -16,6 +16,7 @@
 			turn : 0,
 			/*extend slip ball with yaw, degree and radian conversion*/
 			yaw : 0,
+            lastYaw : 0,
 			degrees : 0,
 			radians : 0,
 			/*extend slip ball with yaw, degree and radian conversion*/
@@ -83,7 +84,10 @@
 			if(pitch>constants.pitch_bound){pitch = constants.pitch_bound;}
 			else if(pitch<-constants.pitch_bound){pitch = -constants.pitch_bound;}
 			placeholder.each(function(){
-				$(this).find('div.instrument.attitude div.roll div.pitch').css('top', pitch*0.7 + '%');
+				//$(this).find('div.instrument.attitude div.roll div.pitch').css('top', pitch*0.7 + '%');
+				$(this).find('div.instrument.attitude div.roll div.pitch').css('-webkit-transform', "translate(0px,+"+pitch*0.7+"px)");
+				$(this).find('div.instrument.attitude div.roll div.pitch').css('-ms-transform', "translate(0px,+"+pitch*0.7+"px)");
+				$(this).find('div.instrument.attitude div.roll div.pitch').css('transform', "translate(0px,+"+pitch*0.7+"px)");
 			});
 		}
 
@@ -152,7 +156,10 @@
 		}
 		
 		/*extending flight indicator js with slipball support*/
-		function _setYaw(yaw){1
+		function _setYaw(yaw){
+            //this.yaw = yaw;
+            //console.log("last yaw start: " + settings.lastYaw);
+            //settings.lastYaw = yaw;
             if(yaw < -20){
                 yaw = -20;
             }
@@ -161,7 +168,29 @@
                 yaw = 20;
             }
 
-			$(".panelBallTodo").rotate(yaw);
+            /*
+            if(settings.lastYaw * 10 < yaw && yaw !== 0 && settings.lastYaw !==0){
+                yaw = settings.lastYaw * 10;
+            }
+
+            if(settings.lastYaw / 10 > yaw && settings.lastYaw !== 0 && yaw !== 0){
+                yaw = settings.lastYaw / 10;
+            }
+            */
+            var rotation = function(){
+                $(".panelBallTodo").rotate({
+                    angle: yaw, 
+                    animateTo: settings.lastYaw, 
+                    easing: function(x,t,b,c,d){
+                        return c*(t/(d*10))+b;
+                    }
+                });
+            }
+
+            rotation();
+
+            settings.lastYaw = yaw;
+            //console.log("last yaw end: " + settings.lastYaw);
 		}
 		
 		// Convert degrees to radians

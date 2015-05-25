@@ -50,3 +50,43 @@ div.instrument.altimeter div.needle {
 div.instrument.altimeter div.needleSmall {
   transform: rotate(90deg);
 }
+
+/*Adding extra Turn Cordinator Rules - Begin*/
+.slipBallUnderPanel{ 
+	left: 141px; 
+	top: -344px; 
+	position: absolute; 
+	width: 200px; 
+	height: 200px; 
+	margin-bottom: -200px; 
+	opacity: 0.7;
+}
+
+.panelOverSlipBall{ 
+	left: 0px; 
+	top: 0px; 
+	position: absolute; 
+	width: 200px; 
+	height: 200px; 
+	margin-bottom: -200px; 
+	z-index:3; 
+}
+
+.maze{ 
+	left: 450px; 
+	top: 20px; 
+	position: absolute; 
+	width: 200px; 
+	height: 200px; 
+	margin-bottom: -200px; 
+}
+
+.panelTodo{ 
+	width: 300px; 
+	height: 300px; 
+}
+
+div.instrument.turn_coordinator div.slipBallUnderPanel img{ 
+	width: 28px; 
+}
+/*Extra Turn Cordinator Rules - End*/

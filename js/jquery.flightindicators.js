@@ -14,6 +14,11 @@
 			roll : 0,
 			pitch : 0,
 			turn : 0,
+			/*extend slip ball with yaw, degree and radian conversion*/
+			yaw : 0,
+			degrees : 0,
+			radians : 0,
+			/*extend slip ball with yaw, degree and radian conversion*/
 			heading: 0,
 			vario: 0,
 			airspeed: 0,
@@ -42,8 +47,11 @@
 					_setVario(settings.vario);
 				break;
 				case 'turn_coordinator':
-					$(this).html('<div class="instrument turn_coordinator"><img src="' + settings.img_directory + 'fi_box.svg" class="background box" alt="" /><img src="' + settings.img_directory + 'turn_coordinator.svg" class="box" alt="" /><div class="turn box"><img src="' + settings.img_directory + 'fi_tc_airplane.svg" class="box" alt="" /></div><div class="mechanics box"><img src="' + settings.img_directory + 'fi_circle.svg" class="box" alt="" /></div></div>');
+					$(this).html('<div class="instrument turn_coordinator"><img src="' + settings.img_directory + 'fi_box.svg" class="background box" alt="" /><img src="' + settings.img_directory + 'turn_coordinator_sep_b.svg" class="box" alt="" />  <!-- Slip Ball starts here --> <div class="slipBallUnderPanel"><img src="' + settings.img_directory + 'slipBall_add_v2_rotate_js_test_small_fx.svg" class="panelBallTodo" alt=""  /></div> <!-- Slip Ball ends here --> <div class="turn box"><img src="' + settings.img_directory + 'fi_tc_airplane.svg" class="box" alt="" /></div><div class="mechanics box"><img src="' + settings.img_directory + 'fi_circle.svg" class="box" alt="" /></div></div> <!-- Front Panel added here --> <div class="panelOverSlipBall"><img src="' + settings.img_directory + '/turn_coordinator_sep_b_panel.svg" class="panelTodo" alt=""></div> <!-- End of Front Panel add -->');
 					_setTurn(settings.turn);
+					_setYaw(settings.yaw);
+					_getRadians(settings.degrees);
+					_getDegrees(settings.radians);
 				break;
 				case 'airspeed':
 					$(this).html('<div class="instrument airspeed"><img src="' + settings.img_directory + 'fi_box.svg" class="background box" alt="" /><img src="' + settings.img_directory + 'speed_mechanics.svg" class="box" alt="" /><div class="speed box"><img src="' + settings.img_directory + 'fi_needle.svg" class="box" alt="" /></div><div class="mechanics box"><img src="' + settings.img_directory + 'fi_circle.svg" class="box" alt="" /></div></div>');
@@ -142,6 +150,23 @@
 				$(this).find('img.box.background').hide();
 			});
 		}
+		
+		/*extending flight indicator js with slipball support*/
+		function _setYaw(yaw){
+			$(".panelBallTodo").rotate(yaw);
+		}
+		
+		// Convert degrees to radians
+		function _getRadians(degrees) {
+			return degrees * Math.PI / 180;
+		}
+		 
+		// Convert radians to degrees
+		function _getDegrees(radians) {
+			return radians * 180 / Math.PI;
+		}	
+		
+		/*slipBall support ends here*/
 
 		// Public methods
 		this.setRoll = function(roll){_setRoll(roll);}
@@ -155,7 +180,13 @@
 		this.resize = function(size){_resize(size);}
 		this.showBox = function(){_showBox();}
 		this.hideBox = function(){_hideBox();}
-
+		
+		/*slipBall private methods*/
+		this.setYaw = function(yaw){_setYaw(yaw);}
+		this.getRadians = function(degrees){return _getRadians(degrees);}		// I need to return the value that we are getting!!!
+		this.getDegrees = function(radians){return _getDegrees(radians);}
+		/*end of slipBall private methods*/
+		
 		return attitude;
 	};
 

@@ -53,8 +53,8 @@ div.instrument.altimeter div.needleSmall {
 
 /*Adding extra Turn Cordinator Rules - Begin*/
 .slipBallUnderPanel{ 
-	left: 141px; 
-	top: -344px; 
+	left: 94px; 
+	top: -197px; 
 	position: absolute; 
 	width: 200px; 
 	height: 200px; 
@@ -64,7 +64,7 @@ div.instrument.altimeter div.needleSmall {
 
 .panelOverSlipBall{ 
 	left: 0px; 
-	top: 0px; 
+	top: 899px; 
 	position: absolute; 
 	width: 200px; 
 	height: 200px; 
@@ -87,6 +87,6 @@ div.instrument.altimeter div.needleSmall {
 }
 
 div.instrument.turn_coordinator div.slipBallUnderPanel img{ 
-	width: 28px; 
+	width: 17px; 
 }
 /*Extra Turn Cordinator Rules - End*/

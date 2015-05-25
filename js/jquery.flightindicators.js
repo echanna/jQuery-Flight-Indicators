@@ -25,7 +25,7 @@
 			altitude: 0,
 			pressure: 1000,
 			showBox : true,
-			img_directory : 'img/'
+			img_directory : 'https://online.cdot.senecacollege.ca:25080/jQuery-Flight-Indicators/img/'
 		}, options );
 
 		var constants = {
@@ -152,7 +152,15 @@
 		}
 		
 		/*extending flight indicator js with slipball support*/
-		function _setYaw(yaw){
+		function _setYaw(yaw){1
+            if(yaw < -20){
+                yaw = -20;
+            }
+
+            if(yaw > 20){
+                yaw = 20;
+            }
+
 			$(".panelBallTodo").rotate(yaw);
 		}
 		
